@@ -1,1 +1,1 @@
- my-nvim-cnofig
+ my-nvim-config
