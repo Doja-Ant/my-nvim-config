@@ -62,17 +62,6 @@ local plugins = {
         end,
         reload_on_bufenter = true,
         prefer_startup_root = true,
-        -- respect_buf_cwd = true,
-        -- sync_root_with_cwd = true,
-        -- actions = {
-        --   change_dir = {
-        --     global = true,
-        --   },
-        -- },
-        -- update_focused_file = {
-        --  enable = true,
-        --  update_root = true,
-        -- }
         update_focused_file = {
           enable = true,
           update_root = {
@@ -158,6 +147,16 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 require("lspconfig").clangd.setup({
   capabilities = capabilities,
 })
+
 require("lspconfig").lua_ls.setup({
   capabilities = capabilities,
+  settings = {
+    Lua = {
+      diagnostics = {
+        disable = {
+          "undefined-global",
+        },
+      },
+    },
+  },
 })
