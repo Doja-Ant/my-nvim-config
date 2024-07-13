@@ -107,6 +107,15 @@ local plugins = {
       }
     end,
   },
+  -- treesitter
+  {
+    "nvim-treesitter/nvim-treesitter",
+    lazy = false,
+    build = ":TSUpdate",
+    opts = {
+      highlight = { enable = true },
+    },
+  },
   -- color schemes
   {
     "folke/tokyonight.nvim",
@@ -121,7 +130,7 @@ require("lazy").setup(plugins, opts)
 require("mason").setup()
 
 require("mason-lspconfig").setup({
-  ensure_installed = { "lua_ls", "clangd", "pylsp" },
+  ensure_installed = { "lua_ls", "clangd", "pyright" },
 })
 
 local cmp = require("cmp")
@@ -143,12 +152,20 @@ cmp.setup({
   },
 })
 
+require("nvim-treesitter.configs").setup({
+  ensure_installed = { "c", "lua", "vim", "vimdoc", "python", "cpp", "query" },
+  auto_install = true,
+  highlight = {
+    enable = true,
+  },
+})
+
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 require("lspconfig").clangd.setup({
   capabilities = capabilities,
 })
 
-require("lspconfig").pylsp.setup({
+require("lspconfig").pyright.setup({
   capabilities = capabilities,
 })
 
