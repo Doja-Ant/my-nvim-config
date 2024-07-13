@@ -87,7 +87,7 @@ local plugins = {
       require("conform").setup({
         formatters_by_ft = {
           lua = { "stylua" },
-          python = { "isort" },
+          python = { "black" },
           cpp = { "clang-format" },
         },
         format_on_save = {
@@ -161,15 +161,18 @@ require("nvim-treesitter.configs").setup({
 })
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-require("lspconfig").clangd.setup({
+local lspconfig = require("lspconfig")
+
+lspconfig.clangd.setup({
   capabilities = capabilities,
 })
 
-require("lspconfig").pyright.setup({
+lspconfig.pyright.setup({
+  root_dir = lspconfig.util.root_pattern("main.py"),
   capabilities = capabilities,
 })
 
-require("lspconfig").lua_ls.setup({
+lspconfig.lua_ls.setup({
   capabilities = capabilities,
   settings = {
     Lua = {
