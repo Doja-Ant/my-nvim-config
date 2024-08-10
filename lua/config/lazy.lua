@@ -132,6 +132,9 @@ local plugins = {
       vim.g.vimtex_view_method = "zathura"
     end,
   },
+  {
+    { "akinsho/toggleterm.nvim", version = "*", config = true },
+  },
 }
 
 require("lazy").setup(plugins, opts)
@@ -193,3 +196,5 @@ lspconfig.lua_ls.setup({
     },
   },
 })
+
+require("plugins_config.toggleterm").setup()
