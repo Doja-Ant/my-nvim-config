@@ -87,7 +87,7 @@ local plugins = {
       require("conform").setup({
         formatters_by_ft = {
           lua = { "stylua" },
-          python = { "isort" },
+          python = { "black" },
           cpp = { "clang-format" },
         },
         format_on_save = {
@@ -107,12 +107,33 @@ local plugins = {
       }
     end,
   },
+  -- treesitter
+  {
+    "nvim-treesitter/nvim-treesitter",
+    lazy = false,
+    build = ":TSUpdate",
+    opts = {
+      highlight = { enable = true },
+    },
+  },
   -- color schemes
   {
     "folke/tokyonight.nvim",
     lazy = false,
     priority = 1000,
     opts = {},
+  },
+  {
+    "lervag/vimtex",
+    lazy = false, -- we don't want to lazy load VimTeX
+    -- tag = "v2.15", -- uncomment to pin to a specific release
+    init = function()
+      -- VimTeX configuration goes here, e.g.
+      vim.g.vimtex_view_method = "zathura"
+    end,
+  },
+  {
+    { "akinsho/toggleterm.nvim", version = "*", config = true },
   },
 }
 
@@ -143,8 +164,23 @@ cmp.setup({
   },
 })
 
+require("nvim-treesitter.configs").setup({
+  ensure_installed = { "c", "lua", "vim", "vimdoc", "python", "cpp", "query" },
+  auto_install = true,
+  highlight = {
+    enable = true,
+  },
+})
+
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-require("lspconfig").clangd.setup({
+local lspconfig = require("lspconfig")
+
+lspconfig.clangd.setup({
+  capabilities = capabilities,
+})
+
+lspconfig.pyright.setup({
+  root_dir = lspconfig.util.root_pattern("main.py"),
   capabilities = capabilities,
 })
 
@@ -168,3 +204,5 @@ require("lspconfig").lua_ls.setup({
     },
   },
 })
+
+require("plugins_config.toggleterm").setup()
