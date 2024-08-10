@@ -142,7 +142,7 @@ require("lazy").setup(plugins, opts)
 require("mason").setup()
 
 require("mason-lspconfig").setup({
-  ensure_installed = { "lua_ls", "clangd", "pyright", "pylyzer", "pylsp" },
+  ensure_installed = { "lua_ls", "clangd", "pyright", "pylyzer", "pylsp", "cmake" },
 })
 
 local cmp = require("cmp")
@@ -204,5 +204,7 @@ require("lspconfig").lua_ls.setup({
     },
   },
 })
+
+require("lspconfig").cmake.setup({})
 
 require("plugins_config.toggleterm").setup()
