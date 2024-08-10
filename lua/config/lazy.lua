@@ -121,7 +121,7 @@ require("lazy").setup(plugins, opts)
 require("mason").setup()
 
 require("mason-lspconfig").setup({
-  ensure_installed = { "lua_ls", "clangd" },
+  ensure_installed = { "lua_ls", "clangd", "pyright", "pylyzer", "pylsp" },
 })
 
 local cmp = require("cmp")
@@ -147,6 +147,14 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 require("lspconfig").clangd.setup({
   capabilities = capabilities,
 })
+
+-- require("lspconfig").pyright.setup({
+--   capabilities = capabilities,
+--   single_file_support = true,
+-- })
+-- require("lspconfig").pylyzer.setup({})
+
+require("lspconfig").pylsp.setup({})
 
 require("lspconfig").lua_ls.setup({
   capabilities = capabilities,
