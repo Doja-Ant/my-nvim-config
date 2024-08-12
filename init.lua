@@ -7,4 +7,4 @@ vim.o.clipboard = "unnamedplus"
 require("config.keymaps")
 require("config.lazy")
 
-vim.cmd([[colorscheme tokyonight]])
+vim.cmd([[colorscheme delek]])
