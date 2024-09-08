@@ -116,6 +116,13 @@ local plugins = {
       highlight = { enable = true },
     },
   },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    ---@module "ibl"
+    ---@type ibl.config
+    opts = {},
+  },
   -- color schemes
   {
     "folke/tokyonight.nvim",

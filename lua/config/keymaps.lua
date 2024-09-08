@@ -24,3 +24,11 @@ vim.keymap.set({ "i", "s" }, "<Tab>", function()
     return "<Tab>"
   end
 end, { expr = true })
+
+-- launch Telescope with specified dir
+vim.keymap.set("n", "<leader>fi", function()
+  vim.ui.input({ prompt = "find files from cwd: ~/", completion = "dir" }, function(input)
+    local dir = "~/" .. input
+    vim.cmd({ cmd = "Telescope", args = { "find_files", "cwd=" .. dir } })
+  end)
+end)
