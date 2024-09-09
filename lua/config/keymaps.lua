@@ -35,3 +35,14 @@ vim.keymap.set("n", "<leader>fi", function()
   end)
   vim.cmd({ cmd = "cd", args = { cwd } })
 end)
+
+-- launch live grep with specified dir
+vim.keymap.set("n", "<leader>li", function()
+  local cwd = vim.fn.getcwd()
+  vim.cmd({ cmd = "cd", args = { "~/" } })
+  vim.ui.input({ prompt = "live grep from cwd: ~/", completion = "dir" }, function(input)
+    local dir = "~/" .. input
+    vim.cmd({ cmd = "Telescope", args = { "live_grep", "cwd=" .. dir } })
+  end)
+  vim.cmd({ cmd = "cd", args = { cwd } })
+end)
