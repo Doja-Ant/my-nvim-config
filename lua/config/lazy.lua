@@ -105,6 +105,12 @@ local plugins = {
           "Spaces",
         },
       }
+      require("conform").formatters.black = {
+        prepend_args = {
+          "--line-length",
+          "80",
+        },
+      }
     end,
   },
   -- treesitter
